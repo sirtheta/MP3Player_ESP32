@@ -108,10 +108,10 @@ void MP3::injectWithIndex(int8_t index)
 uint8_t MP3::getStatus()
 {
   int dat;
-  while(myMP3.available())dat = myMP3.read();
+  while (myMP3.available()) dat = myMP3.read();
   sendCommand(CMD_CHECK_STATUS);
-  while(myMP3.available()<9);
-  while(myMP3.read() != CMD_CHECK_STATUS)//the status come after the command 
+  while (myMP3.available()<9);
+  while (myMP3.read() != CMD_CHECK_STATUS)//the status come after the command 
   	{
   	  
 	    //  Serial.print(dat,HEX);
@@ -139,8 +139,8 @@ void MP3::playWithFileName(int8_t directory, int8_t file)
 
 void MP3::playWithVolume(int8_t index, int8_t volume)
 {
-  if(volume < 0) volume = 0;          //min volume
-  else if(volume > 0x1e) volume = 0x1e;//max volume
+  if (volume < 0) volume = 0;           //min volume
+  else if (volume > 0x1e) volume = 0x1e;//max volume
   int16_t dat;
   dat = ((int16_t)volume) << 8;
   dat |= index;
@@ -157,14 +157,14 @@ void MP3::cyclePlay(int16_t index)
 void MP3::setCyleMode(int8_t AllSingle)
 {
  //AllSingle parameter should be 0 or 1, 0 is all songs cycle play, 1 is single cycle play
-  if((AllSingle == 0) || (AllSingle == 1))
-    mp3_5bytes(CMD_SET_PLAY_MODE,AllSingle);
+  if ((AllSingle == 0) || (AllSingle == 1))
+    mp3_5bytes(CMD_SET_PLAY_MODE, AllSingle);
 }
 
 
 void MP3::playCombine(int16_t folderAndIndex[], int8_t number)
 {
-  if(number > 15) return;//number of songs combined can not be more than 15
+  if (number > 15) return;//number of songs combined can not be more than 15
   uint8_t nbytes;//the number of bytes of the command with starting byte and ending byte
   nbytes = 2*number + 4;
   uint8_t Send_buf[nbytes];
@@ -184,17 +184,17 @@ void MP3::playCombine(int16_t folderAndIndex[], int8_t number)
 void MP3::sendCommand(int8_t command, int16_t dat)
 {
   delay(20);
-  if((command == CMD_PLAY_W_VOL)||(command == CMD_SET_PLAY_MODE)||(command == CMD_PLAY_COMBINE))
+  if ((command == CMD_PLAY_W_VOL)||(command == CMD_SET_PLAY_MODE)||(command == CMD_PLAY_COMBINE))
   	return;
-  else if(command < 0x1F) 
+  else if (command < 0x1F) 
   {
 	mp3Basic(command);
   }
-  else if(command < 0x40)
+  else if (command < 0x40)
   { 
 	mp3_5bytes(command, dat);
   }
-  else if(command < 0x50)
+  else if (command < 0x50)
   { 
 	mp3_6bytes(command, dat);
   }
