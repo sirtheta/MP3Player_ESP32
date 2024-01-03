@@ -42,7 +42,7 @@ void setup()
   delay(500);
   mp3.begin();
 
-  mp3.setVolume(currentVolume);
+
   // Button config
   pinMode(BUTTON_PIN, INPUT);
   buttonConfig.setEventHandler(handleEvent);
@@ -53,6 +53,8 @@ void setup()
   IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
 
   Serial.println(F("setup(): end"));
+  
+  playWelcomeTune();
 }
 
 void loop()
@@ -61,6 +63,13 @@ void loop()
   receiveIRData();
 }
 
+void playWelcomeTune()
+{
+  delay(1000);
+  mp3.playWithVolume(0x01, 0x16);
+  delay(1500);
+  mp3.setVolume(currentVolume);
+}
 void checkButtons()
 {
   static uint16_t prev = millis();
@@ -95,7 +104,7 @@ void handleEvent(AceButton *button, uint8_t eventType, uint8_t buttonState)
 
 void playOrPause()
 {
-  play= !play;
+  play = !play;
   if (play)
   {    
     if (playmode == CYCLE_PLAY_OFF)

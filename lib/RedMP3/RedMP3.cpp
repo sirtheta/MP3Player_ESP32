@@ -97,7 +97,7 @@ void MP3::allCycle()
 
 void MP3::playWithIndex(int8_t index)
 {
-  sendCommand(CMD_PLAY_W_INDEX,index);
+  sendCommand(CMD_PLAY_W_INDEX, index);
 }
 
 void MP3::injectWithIndex(int8_t index)
@@ -184,19 +184,19 @@ void MP3::playCombine(int16_t folderAndIndex[], int8_t number)
 void MP3::sendCommand(int8_t command, int16_t dat)
 {
   delay(20);
-  if ((command == CMD_PLAY_W_VOL)||(command == CMD_SET_PLAY_MODE)||(command == CMD_PLAY_COMBINE))
+  if ((command == CMD_PLAY_W_VOL) || (command == CMD_SET_PLAY_MODE) || (command == CMD_PLAY_COMBINE))
   	return;
   else if (command < 0x1F) 
   {
-	mp3Basic(command);
+	  mp3Basic(command);
   }
   else if (command < 0x40)
   { 
-	mp3_5bytes(command, dat);
+	  mp3_5bytes(command, dat);
   }
   else if (command < 0x50)
   { 
-	mp3_6bytes(command, dat);
+	  mp3_6bytes(command, dat);
   }
   else return;
  
@@ -211,6 +211,7 @@ void MP3::mp3Basic(int8_t command)
   Send_buf[3] = 0xef; //
   sendBytes(Send_buf, 4);
 }
+
 void MP3::mp3_5bytes(int8_t command, uint8_t dat)
 {
   uint8_t Send_buf[5];
@@ -221,6 +222,7 @@ void MP3::mp3_5bytes(int8_t command, uint8_t dat)
   Send_buf[4] = 0xef; //
   sendBytes(Send_buf, 5);
 }
+
 void MP3::mp3_6bytes(int8_t command, int16_t dat)
 {
   uint8_t Send_buf[6];
@@ -232,12 +234,11 @@ void MP3::mp3_6bytes(int8_t command, int16_t dat)
   Send_buf[5] = 0xef; //
   sendBytes(Send_buf,6);
 }
+
 void MP3::sendBytes(uint8_t buf[], uint8_t nbytes)
 {
-  for(uint8_t i=0; i < nbytes; i++)//
+  for (uint8_t i=0; i < nbytes; i++)
   {
-    myMP3.write(buf[i]) ;
+    myMP3.write(buf[i]);
   }
 }
-
-

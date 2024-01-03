@@ -35,6 +35,7 @@ static const uint16_t LEVELS[NUM_LEVELS] = {
 static LadderButtonConfig buttonConfig(
     BUTTON_PIN, NUM_LEVELS, LEVELS, NUM_BUTTONS, BUTTONS);
 
+void playWelcomeTune();
 void checkButtons();
 void handleEvent(AceButton *button, uint8_t eventType, uint8_t buttonState);
 void playOrPause();
