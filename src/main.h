@@ -37,6 +37,7 @@ static LadderButtonConfig buttonConfig(
 
 void playWelcomeTune();
 void checkButtons();
+void checkStatus();
 void handleEvent(AceButton *button, uint8_t eventType, uint8_t buttonState);
 void playOrPause();
 void muteOrUnmute(); 

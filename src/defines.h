@@ -11,11 +11,11 @@
 #define IR_CMD_VOL_UP     9
 #define IR_CMD_PLAY_PAUSE 68
 
-#define IR_EXECUTION_TIME_WINDOW 50
+#define IR_EXECUTION_TIME_WINDOW 100
 #define BUTTON_EXECUTION_TIME_WINDOW 10
 
 #define CYCLE_PLAY_OFF 1
 #define CYCLE_PLAY_ON  0
 
-#define INITIAL_VOLUME 0x0A // equals 10. Volume can be from 0 to 30
-#define MAX_VOLUME     0x11 // equals 17
+#define INITIAL_VOLUME 15 // equals 10. Volume can be from 0 to 30
+#define MAX_VOLUME     22 // equals 20
